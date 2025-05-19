@@ -21,9 +21,9 @@ int surface() const;
 
 // On utilise void car ces méthodes ne retournent rien, elles modifient juste les attributs.
 
-void setlongeur(int );
+void setlongueur(int );
 void setlargeur(int);
-bool compare(const rectangle &);
+bool comparer(const rectangle &);
 void afficher();
 
 };
