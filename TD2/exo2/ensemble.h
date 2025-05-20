@@ -13,6 +13,7 @@ private:
     int *tab;
 public:
     ensemble(int );
+    ensemble(const ensemble& e);
     int cardinal();
     void ajouter(int ); // j ai mis void parsceque c est l objet appelant qui est modifier
     void supprimer(int); // j ai mis void parsceque c est l objet appelant qui est modifier

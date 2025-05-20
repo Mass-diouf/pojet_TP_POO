@@ -7,6 +7,21 @@ ensemble::ensemble(int t) {
     courant = 0;
     tab = new int[taille];
 }
+//constructeur de copie 
+
+ensemble :: ensemble(const ensemble & e)
+{
+    taille= e.taille;
+    courant=e.courant;
+    position=e.position;
+    tab= new int [taille];
+    for (int i = 0; i < courant; i++)
+    {
+       tab[i]=e.tab[i];
+    }
+    
+    
+}
 
 // Retourne le nombre d'éléments dans l'ensemble
 int ensemble::cardinal() {
