@@ -2,74 +2,51 @@
 #include "pile.h"
 using namespace std;
 
-// Fonction utilitaire pour colorer le texte (Windows uniquement)
 
-
-void menu() {
-    
-    cout << "\n====== MENU DE GESTION DE LA PILE ======\n";
-    
-    cout << "1. Empiler\n";
-    cout << "2. Depiler\n";
-    cout << "3. Afficher la pile\n";
-    cout << "4. Voir le sommet\n";
-    cout << "5. Quitter\n";
-    
-    cout << "========================================\n";
-    cout << "Votre choix : ";
-}
 
 int main() {
     pile p;
-    int choix, valeur;
 
-    do {
-        menu();
-        cin >> choix;
+    // Empiler des valeurs
+    p.empiler(10);
+    p.empiler(20);
+    p.empiler(30);
+    cout << "Pile après empilements : ";
+    p.afficher();
 
-        switch (choix) {
-            case 1:
-                cout << "Entrez une valeur à empiler : ";
-                cin >> valeur;
-                p.empiler(valeur);
-                cout << " Valeur empiler avec succès.\n";
-                break;
+    // Voir le sommet
+    cout << "Sommet actuel : " << p.sommet() << endl;
 
-            case 2:
-                p.depiler();
-                cout << " Élement dépilé .\n";
-                break;
+    // Dépiler un élément
+    p.depiler();
+    cout << "Pile après un dépilement : ";
+    p.afficher();
 
-            case 3:
-                
-                cout << " Contenu actuel de la pile :\n";
-                p.afficher();
-                
-                break;
+    // Empiler deux autres valeurs pour test des opérateurs
+    p.empiler(5);
+    p.empiler(2);
+    cout << "Pile avant opération + : ";
+    p.afficher();
 
-            case 4:
-                if (!p.estvide()) {
-                
-                    cout << " Sommet de la pile : " << p.sommet() << endl;
-                } else {
-                
-                    cout << "La pile est vide.\n";
-                }
-                
-                break;
+    // Utilisation de l’opérateur +
+    +p;
+    cout << "Pile après somme des deux premiers éléments : ";
+    p.afficher();
 
-            case 5:
-                
-                cout << "Au revoir \n";
-                break;
+    // Empiler à nouveau deux valeurs pour tester *
+    p.empiler(3);
+    p.empiler(4);
+    *p;
+    cout << "Pile après multiplication des deux premiers éléments : ";
+    p.afficher();
 
-            default:
-                
-                cout << " Choix invalide. Veuillez réessayer.\n";
-                
-        }
-
-    } while (choix != 5);
+    // Empiler encore pour tester -
+    p.empiler(15);
+    p.empiler(5);
+    -p;
+    cout << "Pile après soustraction des deux premiers éléments : ";
+    p.afficher();
 
     return 0;
 }
+

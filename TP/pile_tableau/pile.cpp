@@ -8,13 +8,93 @@ pile ::pile()
     taille =0;
    tab = new int[5]; 
 }
+pile ::pile(const pile & p)
+{
+     cout<<"-------------------APL DU CONSTRUCTEUR DE COPIE-------------------------"<<endl;
 
+    taille =p.taille;
+   tab = new int[5]; 
+   int i=0;
+   while (i!=taille)
+   {
+    tab[i]=p.tab[i++];
+   }
+   
+}
+
+pile & pile :: operator=(const pile & p)
+{
+  if (this!=&p)
+  {
+    delete[] tab;
+    taille =p.taille;
+   tab = new int[5]; 
+   int i=0;
+   while (i!=taille)
+   {
+    tab[i]=p.tab[i++];
+   }
+  }
+  else
+  {
+    //exection
+  }
+
+  return *this;
+  
+}
+
+
+// ici l opreatteur + permet de depiler les deux premiere valeur et de le sommer ensuite empiler la somme 
+pile & pile :: operator+()
+{ if (taille>=2)
+  {
+  
+    int val1 = tab[0];
+    depiler();
+    val1= val1+ tab[0];
+    depiler();
+    empiler(val1);
+    
+    return *this;
+}
+
+
+}
+pile & pile :: operator*()
+{
+  if (taille>=2)
+  {
+    
+      int val1 = tab[0];
+      depiler();
+      val1= val1* tab[0];
+      depiler();
+      empiler(val1);
+
+      return *this;
+  }
+
+}
+pile & pile :: operator-()
+{  if (taille>=2)
+  {
+    int val1 = tab[0];
+    depiler();
+    val1= val1- tab[0];
+     depiler();
+     empiler(val1);
+
+     return *this;
+  }
+}
 pile ::~pile()
 {
      cout<<"-------------------APL DU DESTRUCTEUR-------------------------"<<endl;
 
     delete [] tab;
 }
+
 
 void pile ::empiler(int val)
 {
@@ -45,13 +125,10 @@ void pile:: depiler()
 {
   if (!estvide())
   {
-    int i=0;
-    while (i<taille)
-    {
-     tab[i]=tab[i++];
-    }
-    taille--;
-    
+    for (int i = 0; i < taille - 1; ++i)
+    tab[i] = tab[i + 1];
+   --taille;
+
   }
   else
   {
