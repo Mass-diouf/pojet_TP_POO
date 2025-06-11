@@ -2,24 +2,26 @@
 #define PILE_H
 #include<iostream>
 using namespace std;
-struct liste
+struct elemnt
 {
     int val;
-    liste *suiv;
+    elemnt *suiv;
 };
 
 
  class pile
  {
  private:
-    liste *tete;
+    elemnt *tete;
  public:
     pile();
-    void empiler(int );
+    pile(const pile &);
+    void empiler(elemnt );
     void depiler();
-    int sommet() const;
+    elemnt sommet() const;
     bool estvide() const;
     void afficher();
+    void afficher1();
     ~pile();
  };
  

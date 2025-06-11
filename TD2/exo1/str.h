@@ -17,6 +17,7 @@ public:
     bool operator==(const str &);
     str operator+(const str &); //ici on retourne par valeur puis que c une variable local k on vas retourner
     char & operator[](int i);
+    void affichage();
 };
 
 

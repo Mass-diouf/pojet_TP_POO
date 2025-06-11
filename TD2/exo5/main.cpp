@@ -15,7 +15,7 @@ int main()
         A.empiler(5);
         A.empiler(6);
         A.depiler();
-        A.afficher();
+        A.afficher1();
         cout<< A.sommet();
 
      cout<<"----------------------FIN DU PROGRAMME----------------------"<<endl;

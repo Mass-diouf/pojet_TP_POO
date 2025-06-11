@@ -19,7 +19,7 @@
         {
             i++;
         }
-        long_str=i+1;
+        long_str=i;
         chaine=new char[long_str];
         i=0;
         while (i<long_str)
@@ -87,22 +87,28 @@
 
     // Opérateur de concaténation (+)
     str str:: operator+(const str& s) {
-        str result;
-        result.long_str=long_str+s.long_str;
-        result.chaine= new char[result.long_str];
-        int i=0;
-        while (i<result.long_str)
-        {
-          if (i)
-          {
-            /* code */
-          }
-           
-        }
-        
+       
+       char* c=new char [long_str+s.long_str +1];
+       int i=0;
+       while (i< long_str)
+       {
+        c[i]=chaine[i];
+        i++;
+
+       }
+        while (i< long_str+ s.long_str)
+       {
+        c[i]=s.chaine[i-long_str];
+        i++;
+
+       }
+       c[i] = '\0';  // fin de chaîne correcte
+
+       
+        str resultat(c);
       
 
-        return result;
+        return resultat;
     }
 
     // Opérateur d'indexation []
@@ -113,5 +119,17 @@
         return chaine[i]; // On retourne une référence
     }
 
+
+    void str :: affichage()
+    {
+        cout<<"la longueur est "<<long_str<<endl;
+        int i=0;
+        while (i<long_str)
+        {
+            cout<<chaine[i];
+            i++;
+        }
+        
+    }
    
 

@@ -1,33 +1,37 @@
 #ifndef PILE_H
 #define PILE_H
 #include<iostream>
+#include <string>       // Pour std::string
+#include <sstream>      // Pour stringstream
+#include <cctype>       // Pour isdigit()
+#include <stack>  
+#include  <vector>     // Pour std::stack
 using namespace std;
-
+typedef int element;
 
  class pile
  {
  private:
     int taille;
-    int *tab;
+    element *tab;
  public:
     pile();
     pile (const pile &);
-    void empiler(int );
+    void empiler(element);
     void depiler();
-    int sommet() const;
+    element sommet() const;
     bool estvide() const;
     void afficher();
     pile & operator=(const pile&);
-    pile & operator+();
-    pile & operator*( );
-    pile & operator-( );
-
-
-
     ~pile();
+    void evaluation();
+    void evaluation2();
+
+
  };
  
  
- 
+ int priorite(char op);
+ string infixeVersPostfixe(const string& infixe);
 
 #endif
