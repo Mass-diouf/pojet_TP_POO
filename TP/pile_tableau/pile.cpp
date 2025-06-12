@@ -12,37 +12,27 @@ pile ::pile(const pile & p)
 {
      cout<<"-------------------APL DU CONSTRUCTEUR DE COPIE-------------------------"<<endl;
 
-    taille =p.taille;
-   tab = new element[5]; 
-   int i=0;
-   while (i!=taille)
-   {
-    tab[i]=p.tab[i++];
-   }
+     taille = p.taille;
+    tab = new element[taille];
+    for (int i = 0; i < taille; ++i)
+        tab[i] = p.tab[i];
    
 }
 
-pile & pile :: operator=(const pile & p)
-{
-  if (this!=&p)
-  {
-    delete[] tab;
-    taille =p.taille;
-   tab = new element[5]; 
-   int i=0;
-   while (i!=taille)
-   {
-    tab[i]=p.tab[i++];
-   }
-  }
-  else
-  {
-    //exection
-  }
 
-  return *this;
-  
+pile& pile::operator=(const pile& p)
+{
+    if (this != &p)
+    {
+        delete[] tab;
+        taille = p.taille;
+        tab = new element[taille];
+        for (int i = 0; i < taille; ++i)
+            tab[i] = p.tab[i];
+    }
+    return *this;
 }
+
 
 
 
@@ -54,54 +44,45 @@ pile ::~pile()
 }
 
 
-void pile ::empiler(element val)
+void pile::empiler(element val)
 {
-   
-
-     
-      if (taille+1 < 10) 
-      {
+    if (taille < 5)
+    {
+        for (int i = taille; i > 0; --i)
+            tab[i] = tab[i-1];
+        tab[0] = val;
         taille++;
-        
-      } 
-      
-       int i=taille;
-      while (i > 0) 
-      {
-        tab[i] = tab[i-1 ];
-        i--;
-      }
-
-      tab[0] = val;
-
-    
+    }
+    else
+        cout << "Pile pleine." << endl;
 }
 
-void pile:: depiler()
+void pile::depiler()
 {
-  if (!estvide())
-  {
-  
-    cout << "Pile vide ! Impossible de dépiler." << endl;
-      taille--;
-  }
- 
- 
-  
+    if (!estvide())
+    {
+        for (int i = 0; i < taille - 1; ++i)
+            tab[i] = tab[i + 1];
+        taille--;
+    }
+    else
+        cout << "Pile vide." << endl;
 }
 
-int pile :: sommet() const
+
+
+element pile::sommet() const
 {
-  if (!estvide())
-   {
+    if (!estvide())
         return tab[0];
-    } 
     else
     {
         cout << "Pile vide ! Aucun sommet." << endl;
-        // ou lever une exception
+        // Si tu peux, lever une exception sinon retourner une valeur par défaut
+        return element{};  // valeur par défaut
     }
 }
+
 bool pile :: estvide() const
 {
     return (taille==0);
@@ -166,98 +147,114 @@ void pile::evaluation() {
 
 
 
-int priorite(char op) {
-    if (op == '+' || op == '-') return 1;
-    if (op == '*' || op == '/') return 2;
-    return 0;
-}
+// int priorite(char op) {
+//     if (op == '+' || op == '-') return 1;
+//     if (op == '*' || op == '/') return 2;
+//     return 0;
+// }
 
-string infixeVersPostfixeInteractif() {
-    vector<string> tokens;
-    string token;
+// string conversionInfixeVersPostfixe() {
+//     const int TAILLE_MAX = 100;
+//     string jetons[TAILLE_MAX];
+//     int nb_jetons = 0;
+//     string saisie;
 
-    cout << "Entrez l'expression infixée un jeton à la fois (ex: 3, +, (, etc.). Tapez 'fin' pour terminer :" << endl;
+//     cout << "Entrez l'expression infixée un jeton à la fois (ex: 3, +, (, etc.). Tapez 'fin' pour terminer :" << endl;
 
-    while (true) {
-        cout << ">> ";
-        cin >> token;
+//     // Lecture des jetons
+//     while (true) {
+//         cout << ">> ";
+//         cin >> saisie;
+//         if (saisie == "fin") break;
 
-        if (token == "fin") break;
-        tokens.push_back(token);
-    }
+//         if (nb_jetons >= TAILLE_MAX) {
+//             cout << "Nombre maximal de jetons atteint." << endl;
+//             break;
+//         }
 
-    stringstream sortie;
-    stack<string> op_stack;
+//         jetons[nb_jetons++] = saisie;
+//     }
 
-    auto priorite = [](const string& op) {
-        if (op == "+" || op == "-") return 1;
-        if (op == "*" || op == "/") return 2;
-        return 0;
-    };
+//     stringstream sortie;
+//     pile pileOperateurs;  // ta pile pour stocker les opérateurs
 
-    for (const string& t : tokens) {
-        if (isdigit(t[0]) || (t.size() > 1 && isdigit(t[1]))) {
-            sortie << t << " ";
-        }
-        else if (t == "(") {
-            op_stack.push(t);
-        }
-        else if (t == ")") {
-            while (!op_stack.empty() && op_stack.top() != "(") {
-                sortie << op_stack.top() << " ";
-                op_stack.pop();
-            }
-            if (!op_stack.empty()) op_stack.pop(); // pop '('
-        }
-        else { // opérateur
-            while (!op_stack.empty() && priorite(op_stack.top()) >= priorite(t)) {
-                sortie << op_stack.top() << " ";
-                op_stack.pop();
-            }
-            op_stack.push(t);
-        }
-    }
+//     // Fonction interne pour donner la priorité aux opérateurs
+//     auto priorite = [](const string& op) {
+//         if (op == "+" || op == "-") return 1;
+//         if (op == "*" || op == "/") return 2;
+//         return 0;
+//     };
 
-    while (!op_stack.empty()) {
-        sortie << op_stack.top() << " ";
-        op_stack.pop();
-    }
+//     for (int i = 0; i < nb_jetons; ++i) {
+//         string jeton = jetons[i];
 
-    return sortie.str();
-}
+//         if (isdigit(jeton[0]) || (jeton.size() > 1 && isdigit(jeton[1]))) {
+//             // C'est un nombre : on le met directement dans la sortie
+//             sortie << jeton << " ";
+//         }
+//         else if (jeton == "(") {
+//             pileOperateurs.empiler(jeton);
+//         }
+//         else if (jeton == ")") {
+//             // On dépile jusqu'à trouver '('
+//             while (!pileOperateurs.estvide() && pileOperateurs.sommet() != "(") {
+//                 sortie << pileOperateurs.sommet() << " ";
+//                 pileOperateurs.depiler();
+//             }
+//             if (!pileOperateurs.estvide()) {
+//                 pileOperateurs.depiler();  // retirer '('
+//             }
+//         }
+//         else { // opérateur + - * /
+//             while (!pileOperateurs.estvide() && priorite(pileOperateurs.sommet()) >= priorite(jeton)) {
+//                 sortie << pileOperateurs.sommet() << " ";
+//                 pileOperateurs.depiler();
+//             }
+//             pileOperateurs.empiler(jeton);
+//         }
+//     }
 
-void pile::evaluation2() {
-    string expr_postfixe = infixeVersPostfixeInteractif();
+//     // Vider le reste des opérateurs
+//     while (!pileOperateurs.estvide()) {
+//         sortie << pileOperateurs.sommet() << " ";
+//         pileOperateurs.depiler();
+//     }
 
-    cout << "Expression postfixée : " << expr_postfixe << endl;
+//     return sortie.str();
+// }
 
-    stringstream ss(expr_postfixe);
-    string mot;
+// void pile::evaluation2() {
+//     string expr_postfixe =  conversionInfixeVersPostfixe();
 
-    while (ss >> mot) {
-        if (isdigit(mot[0]) || (mot.size() > 1 && mot[0] == '-')) {
-            empiler(stoi(mot));
-        } else {
-            if (taille < 2) {
-                cout << "Erreur : pas assez d'éléments pour effectuer l'opération." << endl;
-                return;
-            }
+//     cout << "Expression postfixée : " << expr_postfixe << endl;
 
-            int b = sommet(); depiler();
-            int a = sommet(); depiler();
+//     stringstream ss(expr_postfixe);
+//     string mot;
 
-            if (mot == "+") empiler(a + b);
-            else if (mot == "-") empiler(a - b);
-            else if (mot == "*") empiler(a * b);
-            else if (mot == "/") {
-                if (b == 0) {
-                    cout << "Erreur : division par zéro" << endl;
-                    return;
-                }
-                empiler(a / b);
-            }
-        }
-    }
+//     while (ss >> mot) {
+//         if (isdigit(mot[0]) || (mot.size() > 1 && mot[0] == '-')) {
+//             empiler(stoi(mot));
+//         } else {
+//             if (taille < 2) {
+//                 cout << "Erreur : pas assez d'éléments pour effectuer l'opération." << endl;
+//                 return;
+//             }
+
+//             int b = sommet(); depiler();
+//             int a = sommet(); depiler();
+
+//             if (mot == "+") empiler(a + b);
+//             else if (mot == "-") empiler(a - b);
+//             else if (mot == "*") empiler(a * b);
+//             else if (mot == "/") {
+//                 if (b == 0) {
+//                     cout << "Erreur : division par zéro" << endl;
+//                     return;
+//                 }
+//                 empiler(a / b);
+//             }
+//         }
+//     }
 
     
-}
+// }

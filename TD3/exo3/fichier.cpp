@@ -9,6 +9,30 @@ salaire ::salaire(char * Nom , char * Prenom)
    strcpy(prenom , Prenom);
 
 }
+salaire:: salaire(const salaire& s)
+{
+   nom= new char[strlen(s.nom)];
+   prenom= new char [strlen(s.prenom)];
+   strcpy(nom , s.nom);
+   strcpy(prenom , s.prenom); 
+}
+
+salaire& salaire :: operator=(const salaire & s)
+{
+   if (this==&s)
+   {
+      return(*this);
+   }
+   delete nom;
+   delete prenom;
+   nom= new char[strlen(s.nom)];
+   prenom= new char [strlen(s.prenom)];
+   strcpy(nom , s.nom);
+   strcpy(prenom , s.prenom); 
+
+    return(*this);
+   
+}
 
 char * salaire ::get_nom() const
 {
@@ -34,6 +58,27 @@ administration ::administration(char * prenom , char * nom , char * f) :salaire(
    strcpy(fonction , f);
    
 }
+
+administration ::administration(const administration& a) : salaire(a)
+{
+   fonction=new char [strlen(a.fonction)];
+   strcpy(fonction, a.fonction);
+}
+
+administration& administration::operator=(const administration & a) 
+{
+   if (this==&a)
+   {
+     return (*this);
+   }
+    salaire:: operator=(a);
+    fonction=new char [strlen(a.fonction)];
+   strcpy(fonction, a.fonction);
+
+
+   return (*this);
+   
+}
  char * administration:: get_fonction() const
  {
     return fonction;
@@ -55,7 +100,12 @@ professeur :: professeur(char * prenom , char * nom , char * d) : salaire(nom, p
 {
     diplome= new char [strlen(d)];
     strcpy(diplome , d);
-    matiere= new char*[10];
+    int i=0;
+    while (i<5)
+    {
+      matiere[i]=nullptr;
+    }
+    
 }
 
 char * professeur:: get_diplome()
@@ -63,6 +113,27 @@ char * professeur:: get_diplome()
    return diplome ;
 }
 
+professeur:: professeur(const professeur & p) : salaire(p)
+{
+   diplome= new char [strlen(p.diplome)];
+   strcpy(diplome , p.diplome );
+}
+
+professeur & professeur:: operator=(const professeur & p)
+{
+   if (this ==&p)
+   {
+     return (*this);
+   }
+   salaire :: operator=(p);
+   delete diplome;
+   diplome= new char [strlen(p.diplome)];
+   strcpy(diplome , p.diplome );
+
+
+   return (*this);
+   
+}
 char *& professeur::operator[](int i)
 {
    if (i>=0 && i<10)
@@ -74,8 +145,22 @@ char *& professeur::operator[](int i)
 void professeur::afficher()
 {
    salaire::afficher();
-   cout<<" diplome:"<<diplome<<endl;
-   
+   cout<<" diplome:"<<diplome<<endl; 
+}
+
+void professeur::ajouter(char * m)
+{
+
+   int i =0;
+   while (i<5 && matiere[i] )
+   {
+      i++;
+   }
+  if (i<5)
+  {
+   matiere[i]=m;
+  }
+  
    
 }
 

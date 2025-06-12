@@ -4,8 +4,7 @@
 #include <string>       // Pour std::string
 #include <sstream>      // Pour stringstream
 #include <cctype>       // Pour isdigit()
-#include <stack>  
-#include  <vector>     // Pour std::stack
+
 using namespace std;
 typedef int element;
 
@@ -32,6 +31,6 @@ typedef int element;
  
  
  int priorite(char op);
- string infixeVersPostfixe(const string& infixe);
+ string  conversionInfixeVersPostfixe(const string& infixe);
 
 #endif
