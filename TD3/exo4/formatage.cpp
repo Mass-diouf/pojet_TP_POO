@@ -12,7 +12,7 @@
     //str::str() :long_str(0), chaine(new char[1]) {chaine[0] = '\0';}
 
     // Constructeur à partir d'une chaîne C
-    str::str(char* c) {
+    str::str(const char* c) {
 
         int i=0;
         while (c[i])
@@ -122,7 +122,7 @@
 
     void str :: affichage()
     {
-        cout<<"la longueur est "<<long_str<<endl;
+        
         int i=0;
         while (i<long_str)
         {
@@ -138,12 +138,104 @@
 formatage :: formatage()
 {
     f='n';//pour dire que la c est a sa forme normale
+   couleur = new char[6]; // "black" + '\0'
+    strcpy(couleur, "black");// la couleur par defaut
 }
 
-formatage :: formatage(const char * s, char )
+formatage :: formatage(const char * s, char F ,char *col) : str (s)
 {
-    
+    f=F;
+     couleur = new char[strlen(col) + 1];
+   strcpy(couleur, col) ;
+}
+formatage ::formatage(const str &s , char F, char * col) : str(s)
+{
+     f=F;  
+      couleur = new char[strlen(col) + 1];
+     strcpy(couleur, col);
+}
+  formatage ::formatage(const formatage & s): str(s)
+  {
+    f=s.f;
+     couleur = new char[strlen(s.couleur) + 1];
+    strcpy(couleur, s.couleur);
+  }
+
+formatage& formatage::operator=(const formatage& s) {
+    if (this == &s) return *this;
+
+    str::operator=(s);
+    f = s.f;
+
+    delete[] couleur;
+    couleur = new char[strlen(s.couleur) + 1];
+    strcpy(couleur, s.couleur);
+
+    return *this;
 }
 
+
+  formatage& formatage::operator=(const str& s) {
+    str::operator=(s);
+    f = 'n';
+
+    delete[] couleur;
+    couleur = new char[6];
+    strcpy(couleur, "black");
+
+    return *this;
+}
+
+
+  void formatage :: italique()
+  {
+    f='i';
+  }
    
+  void formatage :: bold()
+  {
+    f='b';
+  }
+   void formatage :: colorer(char * col)
+  {
+     couleur = new char[strlen(col) + 1];
+       strcpy(couleur, col);
+  }
+  void formatage :: affichage()
+  {
+     if(f=='n') str::affichage();
+     if(f=='i') 
+     {
+         cout<<"<i>" ;
+         if(strcmp(couleur, "black")==0)
+         str::affichage();
+         else
+         {
+          cout<<"<font couleur = #"<<couleur<<">";
+           str::affichage();
+          cout<<"</font>";
+         }
+          cout<<"</i>" ;
+
+     }
+     if(f=='b') 
+     {
+         cout<<"<b>" ;
+         if(strcmp(couleur, "black")==0)
+         str::affichage();
+         else
+         {
+          cout<<"<font couleur = #"<<couleur<<">";
+           str::affichage();
+          cout<<"</font>";
+         }
+          cout<<"</b>" ;
+
+     }
+
+  }
+  formatage :: ~formatage()
+  {
+
+  }
 

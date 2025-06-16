@@ -1,6 +1,7 @@
 #ifndef FORMATAGE_H
 #define FORMATAGE_H
 #include<iostream>
+#include<cstring>
 using namespace std;
 
 
@@ -12,7 +13,7 @@ private:
    char*chaine;
 public:
     str();
-    str(char *);
+    str(const char *);
     str(const str &);
     ~str();
     str & operator=(const str &);//ici on pense a l effectation multiple c est la raison pour la quelle on retourne une reference 
@@ -26,16 +27,17 @@ class formatage: public str
 {
 private:
     char f;
+    char * couleur;
 public:
     formatage();
-    formatage(const char * , char );
-    formatage( const str& , char );
+    formatage(const char * , char , char *);
+    formatage( const str& , char , char * );
     formatage(const formatage &);
-    formatage & operator=(const char* &);
+    formatage & operator=(const formatage &);
     formatage & operator=(const str &);
     void italique();
     void bold();
-    void colorer();
+    void colorer(char * col);
     void affichage();
     ~formatage();
 };
