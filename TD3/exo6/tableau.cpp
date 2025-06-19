@@ -1,10 +1,6 @@
 #include"tableau.h"
 
 
-
-
-
-
 tableau::~tableau()
 {
     delete [] tab;

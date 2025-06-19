@@ -2,51 +2,51 @@
 #define FICHIER_H
 #include<iostream>
 #include<cstring>
-
+#include<string>
 using namespace std;
 
 class salaire
 {
    private:
-   char *nom; // j avais declare des tableaux mais il est inpossible de rtourner un tableau stctic lorsq le parametre est un *
-   char *prenom;
+   string nom; // j avais declare des tableaux mais il est inpossible de rtourner un tableau stctic lorsq le parametre est un *
+   string prenom;
    public:
-   salaire(char * , char *);
+   salaire(string , string);
    salaire(const salaire &);
    salaire& operator=(const salaire&);
    ~salaire();
-   char * get_nom() const;
-   char * get_prenom() const;
+   string get_nom() const;
+   string get_prenom() const;
    
-   void afficher();
+   virtual void afficher();
     
 };
 class administration :public salaire
 {
     private:
-    char * fonction;
+    string fonction;
     public:
-    administration(char * , char *, char *);
+    administration(string, string, string);
     administration(const administration &);
     administration& operator=(const administration&);
     ~administration();
-    char * get_fonction() const;
+    string get_fonction() const;
     void afficher();
 };
 class professeur : public salaire
 {
 private:
-    char  *diplome;
-    char  *matiere[5];
+    string diplome;
+    string matiere[5];
     
 public:
-    professeur(char * , char * , char * );
+    professeur(string , string , string );
     professeur(const professeur&);
     professeur& operator=(const professeur&);
     ~professeur();
-    char * get_diplome();
-    char * &operator[](int );
-    void ajouter(char*);
+    string get_diplome();
+    string &operator[](int );
+    void ajouter(string);
    
     void afficher();
 

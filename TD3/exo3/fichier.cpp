@@ -1,20 +1,17 @@
 #include"fichier.h"
 
 
-salaire ::salaire(char * Nom , char * Prenom)
+salaire ::salaire(string Nom , string Prenom)
 {
-   nom= new char[strlen(Nom)];
-   prenom= new char [strlen(Prenom)];
-   strcpy(nom , Nom);
-   strcpy(prenom , Prenom);
+   nom= Nom;
+   prenom=Prenom;
+   
 
 }
 salaire:: salaire(const salaire& s)
 {
-   nom= new char[strlen(s.nom)];
-   prenom= new char [strlen(s.prenom)];
-   strcpy(nom , s.nom);
-   strcpy(prenom , s.prenom); 
+   nom= s.nom;
+   prenom=s.prenom;
 }
 
 salaire& salaire :: operator=(const salaire & s)
@@ -23,46 +20,38 @@ salaire& salaire :: operator=(const salaire & s)
    {
       return(*this);
    }
-   delete nom;
-   delete prenom;
-   nom= new char[strlen(s.nom)];
-   prenom= new char [strlen(s.prenom)];
-   strcpy(nom , s.nom);
-   strcpy(prenom , s.prenom); 
+    nom= s.nom;
+   prenom=s.prenom;
 
     return(*this);
    
 }
 
-char * salaire ::get_nom() const
+string salaire ::get_nom() const
 {
    return nom;
 }
-char * salaire ::get_prenom() const
+string salaire ::get_prenom() const
 {
    return prenom;
 }
 void salaire::afficher()
-{
+{  
     cout<<" prenom :"<<prenom<<" nom : "<<nom<<endl;
 }
 salaire::~salaire()
 {
-    delete prenom;
-    delete nom;
+    
 }
 
-administration ::administration(char * prenom , char * nom , char * f) :salaire(nom,prenom)
+administration ::administration(string prenom , string nom , string f) :salaire(nom,prenom)
 {
-   fonction= new char [strlen(f)];
-   strcpy(fonction , f);
-   
+   fonction=f;
 }
 
 administration ::administration(const administration& a) : salaire(a)
 {
-   fonction=new char [strlen(a.fonction)];
-   strcpy(fonction, a.fonction);
+  fonction=a.fonction;
 }
 
 administration& administration::operator=(const administration & a) 
@@ -72,14 +61,12 @@ administration& administration::operator=(const administration & a)
      return (*this);
    }
     salaire:: operator=(a);
-    fonction=new char [strlen(a.fonction)];
-   strcpy(fonction, a.fonction);
-
+ fonction=a.fonction;
 
    return (*this);
    
 }
- char * administration:: get_fonction() const
+ string administration:: get_fonction() const
  {
     return fonction;
  }
@@ -94,29 +81,23 @@ administration& administration::operator=(const administration & a)
 
 administration::~administration()
 {
-   delete fonction;
+   
 }
-professeur :: professeur(char * prenom , char * nom , char * d) : salaire(nom, prenom)
+professeur :: professeur(string prenom , string nom , string d) : salaire(nom, prenom)
 {
-    diplome= new char [strlen(d)];
-    strcpy(diplome , d);
-    int i=0;
-    while (i<5)
-    {
-      matiere[i]=nullptr;
-    }
+   diplome=d;
+    
     
 }
 
-char * professeur:: get_diplome()
+string professeur:: get_diplome()
 {
    return diplome ;
 }
 
 professeur:: professeur(const professeur & p) : salaire(p)
 {
-   diplome= new char [strlen(p.diplome)];
-   strcpy(diplome , p.diplome );
+   diplome=p.diplome;
 }
 
 professeur & professeur:: operator=(const professeur & p)
@@ -126,15 +107,13 @@ professeur & professeur:: operator=(const professeur & p)
      return (*this);
    }
    salaire :: operator=(p);
-   delete diplome;
-   diplome= new char [strlen(p.diplome)];
-   strcpy(diplome , p.diplome );
+  diplome=p.diplome;
 
 
    return (*this);
    
 }
-char *& professeur::operator[](int i)
+string & professeur::operator[](int i)
 {
    if (i>=0 && i<10)
    {
@@ -148,11 +127,11 @@ void professeur::afficher()
    cout<<" diplome:"<<diplome<<endl; 
 }
 
-void professeur::ajouter(char * m)
+void professeur::ajouter(string m)
 {
 
    int i =0;
-   while (i<5 && matiere[i] )
+   while (i<5  )
    {
       i++;
    }
@@ -162,5 +141,9 @@ void professeur::ajouter(char * m)
   }
   
    
+}
+professeur::~professeur()
+{
+
 }
 

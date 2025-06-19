@@ -5,16 +5,16 @@
 
 using namespace std;
 
-
+//ici on voulais tester avec protected pour afficher le nom mais ca marche 
+// avec private cela ne marche pas car les donnees sont proteger
 //----------------------ANIMAL-------------------------------------
 class animal
 {
-private:
+protected:
   string nom;
 public:
     animal(string );
   virtual  void exprimer() =0;
-  virtual string getnom();
     ~animal();
 };
 //----------------------MAMMIFERE-----------------------------------------------
@@ -26,7 +26,7 @@ public:
 mammifere(string);
  ~ mammifere();
   virtual  void exprimer() =0;
-  virtual string getnom();
+
 };
 
 //---------------------OISEAU-------------------------------------
@@ -38,18 +38,19 @@ public:
     oiseau(string);
     ~oiseau();
      virtual  void exprimer() =0;
-     virtual  string getnom();
+    
 };
 //-----------------------CHAT---------------------------------------
 class chat : public mammifere
 {
 private:
   string nom;
+  
 public:
     chat(string);
     ~chat();
       void exprimer() ;
-      string getnom();
+      
 };
 //-------------------SOURIS-----------------------------------------
 class souris : public mammifere
@@ -60,7 +61,7 @@ public:
     souris(string);
     ~souris();
    void exprimer() ;
-    string getnom();
+   
 
 };
 
@@ -73,11 +74,8 @@ public:
     canaris(string);
     ~canaris();
     void exprimer() ;
-    string getnom();
+    
 };
-
-
-
 
 
 #endif
