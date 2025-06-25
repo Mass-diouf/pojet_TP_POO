@@ -8,10 +8,7 @@
         chaine=nullptr;
         
     }
-    //une autre methode pour le constructeur
-    //str::str() :long_str(0), chaine(new char[1]) {chaine[0] = '\0';}
-
-    // Constructeur à partir d'une chaîne C
+    
     str::str(const char* c) {
 
         int i=0;
@@ -29,15 +26,12 @@
         }
           
     }
-    //les consequance de mon choix de ne pas terminer ma chaine par le carctere null
-    //Afficher avec cout << chaine	❌ Non, car chaine n’a pas de '\0'
-
-    // Constructeur de copie
+   
      str::str(const str& s) {
         
         long_str=s.long_str;
-        chaine=new char [long_str];// ici faut comprendre que le constructeur de copie n a pas besoin de free 
-          int i=0;                // car elle permet l initialisation 
+        chaine=new char [long_str];
+          int i=0;                
         while (i<long_str)
         {
            chaine[i]=s.chaine[i];
@@ -51,11 +45,10 @@
         delete[] chaine;
     }
 
-    // Opérateur d'affectation (=)
-    // On retourne une référence pour permettre l'affectation multiple : a = b = c;
+
     str& str::operator=(const str& s) {
-    if (this != &s) { //  Protection contre l’auto-affectation
-        delete[] chaine; //  Libère l'ancienne mémoire
+    if (this != &s) { 
+        delete[] chaine; 
 
         long_str = s.long_str;
         chaine = new char[long_str];
@@ -65,7 +58,7 @@
         }
     }
 
-    return *this; //  Pour permettre l'affectation multiple : a = b = c;
+    return *this; 
 }
 
 
@@ -116,7 +109,7 @@
         if (i < 0 || i >= long_str) {
             throw std::out_of_range("Index hors limites");
         }
-        return chaine[i]; // On retourne une référence
+        return chaine[i]; 
     }
 
 
@@ -138,7 +131,7 @@
 formatage :: formatage()
 {
     f='n';//pour dire que la c est a sa forme normale
-   couleur = new char[6]; // "black" + '\0'
+    couleur = new char[6]; // "black" + '\0'
     strcpy(couleur, "black");// la couleur par defaut
 }
 
@@ -206,30 +199,30 @@ formatage& formatage::operator=(const formatage& s) {
      if(f=='n') str::affichage();
      if(f=='i') 
      {
-         cout<<"<i>" ;
+         cout<<"<i>   " ;
          if(strcmp(couleur, "black")==0)
          str::affichage();
          else
          {
           cout<<"<font couleur = #"<<couleur<<">";
            str::affichage();
-          cout<<"</font>";
+          cout<<"  </font>";
          }
-          cout<<"</i>" ;
+          cout<<"   </i>" ;
 
      }
      if(f=='b') 
      {
-         cout<<"<b>" ;
+         cout<<"<b>    " ;
          if(strcmp(couleur, "black")==0)
          str::affichage();
          else
          {
-          cout<<"<font couleur = #"<<couleur<<">";
+          cout<<" <font couleur = #"<<couleur<<"   >";
            str::affichage();
-          cout<<"</font>";
+          cout<<"    </font>";
          }
-          cout<<"</b>" ;
+          cout<<"    </b>" ;
 
      }
 

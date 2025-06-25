@@ -8,9 +8,9 @@ using namespace std;
 
 class str
 {
-private:
+protected:
    int long_str;
-   char*chaine;
+   char * chaine;
 public:
     str();
     str(const char *);
